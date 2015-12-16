@@ -1,2 +1,2 @@
-# TurningMachine
-Simple demonstration of a Turning Machine in C#
+# TuringMachine
+Simple demonstration of a Turing Machine in C#
