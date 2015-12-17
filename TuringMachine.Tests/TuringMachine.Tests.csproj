@@ -58,6 +58,7 @@
     <Compile Include="Tape\CtorShould.cs" />
     <Compile Include="Tape\MoveHeadRightShould.cs" />
     <Compile Include="Tape\MoveHeadLeftShould.cs" />
+    <Compile Include="Tape\ReadShould.cs" />
     <Compile Include="Tape\WriteShould.cs" />
     <Compile Include="Tape\ToStringShould.cs" />
   </ItemGroup>

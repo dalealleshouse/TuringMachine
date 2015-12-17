@@ -34,6 +34,8 @@ namespace TuringMachine
             ? new Tape(Data.Concat(new[] {Blank}), HeadPostion + 1)
             : new Tape(Data, HeadPostion + 1);
 
+        public char Read() => Data.ElementAt(HeadPostion);
+
         public override string ToString()
             =>
                 $@"Tape: {Data
