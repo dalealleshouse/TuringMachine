@@ -7,29 +7,32 @@ namespace TuringMachine.Tests.Tape
     public class MoveHeadLeftShould
     {
         [TestMethod]
-        public void ReturnNewTapeWhenRightIsEmpty()
+        public void MoveLeftWhenAtZeroHeadPostion()
         {
-            const string expected = "Tape: 10(1)1";
-            var sut = new TuringMachine.Tape(new[] {'1', '0', '1'}, '1', new char[0]);
+            const string expected = "Tape: (_)abcd";
+            var sut = new TuringMachine.Tape(new[] {'a', 'b', 'c', 'd'}, 0);
             var result = sut.MoveHeadLeft();
             Assert.AreEqual(expected, result.ToString());
         }
 
         [TestMethod]
-        public void ReturnNewTapeWhenLeftIsEmpty()
+        public void MoveToTheLeft()
         {
-            const string expected = "Tape: (_)1101";
-            var sut = new TuringMachine.Tape(new char[0], '1', new[] { '1', '0', '1' });
+            var data = new[] {'a', 'b', 'c', 'd', 'e'};
+
+            var expected = "Tape: ab(c)de";
+            var sut = new TuringMachine.Tape(data, 3);
             var result = sut.MoveHeadLeft();
             Assert.AreEqual(expected, result.ToString());
-        }
 
-        [TestMethod]
-        public void ReturnNewTape()
-        {
-            const string expected = "Tape: 10(1)1101";
-            var sut = new TuringMachine.Tape(new[] { '1', '0', '1' }, '1', new[] { '1', '0', '1' });
-            var result = sut.MoveHeadLeft();
+            expected = "Tape: abc(d)e";
+            sut = new TuringMachine.Tape(data, 4);
+            result = sut.MoveHeadLeft();
+            Assert.AreEqual(expected, result.ToString());
+
+            expected = "Tape: (a)bcde";
+            sut = new TuringMachine.Tape(data, 1);
+            result = sut.MoveHeadLeft();
             Assert.AreEqual(expected, result.ToString());
         }
     }

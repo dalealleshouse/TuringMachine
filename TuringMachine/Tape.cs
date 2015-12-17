@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,45 +8,38 @@ namespace TuringMachine
     {
         public static readonly char Blank = '_';
 
-        public Tape(IEnumerable<char> left, char head, IEnumerable<char> right)
+        public Tape(IEnumerable<char> data, int headPostion)
         {
-            if (left == null) throw new ArgumentNullException(nameof(left));
-            if (right == null) throw new ArgumentNullException(nameof(right));
+            if (data == null) throw new ArgumentNullException(nameof(data));
 
-            Left = left;
-            Head = head;
-            Right = right;
+            var safeData = data as char[] ?? data.ToArray();
+            if (headPostion > safeData.Count() - 1 || headPostion < 0)
+                throw new IndexOutOfRangeException("Invalid head postion");
+
+            Data = safeData;
+            HeadPostion = headPostion;
         }
 
-        public IEnumerable<char> Left { get; }
+        public IEnumerable<char> Data { get; }
 
-        public char Head { get; }
+        public int HeadPostion { get; }
 
-        public IEnumerable<char> Right { get; }
+        public Tape Write(char head) => new Tape(new List<char>(Data) {[HeadPostion] = head}, HeadPostion);
 
-        public Tape Write(char head) => new Tape(Left, head, Right);
+        public Tape MoveHeadLeft() => HeadPostion == 0
+            ? new Tape(new[] {Blank}.Concat(Data), 0)
+            : new Tape(Data, HeadPostion - 1);
 
-        public Tape MoveHeadLeft()
-        {
-            var left = Left.Take(Left.Count() - 1);
-            var head = Left.DefaultIfEmpty(Blank).Last();
-            var right = new [] {Head}.Concat(Right);
-
-            return new Tape(left, head, right);
-        }
-
-        public Tape MoveHeadRight()
-        {
-            var left = Left.Concat(new [] {Head});
-            var head = Right.DefaultIfEmpty(Blank).Last();
-            var right = Right.Skip(1);
-
-            return new Tape(left, head, right);
-        }
+        public Tape MoveHeadRight() => HeadPostion == Data.Count() - 1
+            ? new Tape(Data.Concat(new[] {Blank}), HeadPostion + 1)
+            : new Tape(Data, HeadPostion + 1);
 
         public override string ToString()
-        {
-            return $"Tape: {new string(Left.ToArray())}({Head}){new string(Right.ToArray())}";
-        }
+            =>
+                $@"Tape: {Data
+                    .Select(GetChar)
+                    .Aggregate((agg, next) => agg + next)}";
+
+        private string GetChar(char c, int index) => index == HeadPostion ? $"({c})" : c.ToString();
     }
 }

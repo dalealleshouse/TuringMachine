@@ -8,24 +8,18 @@ namespace TuringMachine.Tests.Tape
         [TestMethod]
         public void PrintOutTape()
         {
-            const string expected = "Tape: abc(d)cba";
-            var sut = new TuringMachine.Tape(new[] {'a', 'b', 'c'}, 'd', new[] {'c', 'b', 'a'});
-            Assert.AreEqual(expected, sut.ToString());
-        }
+            var data = new[] {'a', 'b', 'c', 'd', 'c', 'b', 'a'};
 
-        [TestMethod]
-        public void PrintOutTapeWhenLeftIsEmpty()
-        {
-            const string expected = "Tape: (d)cba";
-            var sut = new TuringMachine.Tape(new char[0], 'd', new[] {'c', 'b', 'a'});
+            var expected = "Tape: abc(d)cba";
+            var sut = new TuringMachine.Tape(data, 3);
             Assert.AreEqual(expected, sut.ToString());
-        }
 
-        [TestMethod]
-        public void PrintOutTapeWhenRightIsEmpty()
-        {
-            const string expected = "Tape: abc(d)";
-            var sut = new TuringMachine.Tape(new[] {'a', 'b', 'c'}, 'd', new char[0]);
+            expected = "Tape: (a)bcdcba";
+            sut = new TuringMachine.Tape(data, 0);
+            Assert.AreEqual(expected, sut.ToString());
+
+            expected = "Tape: abcdcb(a)";
+            sut = new TuringMachine.Tape(data, 6);
             Assert.AreEqual(expected, sut.ToString());
         }
     }

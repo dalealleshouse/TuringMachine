@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Diagnostics;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TuringMachine.Tests.Tape
 {
@@ -8,14 +9,23 @@ namespace TuringMachine.Tests.Tape
         [TestMethod]
         public void ReturnNewTapeWithUpdatedHead()
         {
-            var left = new[] {'a'};
-            var right = new[] {'c'};
-            const char head = 'b';
+            var data = new[] {'a', 'b', 'c'};
+
+            const string expected = "Tape: a(f)c";
+            var sut = new TuringMachine.Tape(data, 1);
+            var result = sut.Write('f');
+            Assert.AreEqual(expected, result.ToString());
+        }
+
+        [TestMethod]
+        public void NotMutateOriginalData()
+        {
+            var data = new[] { 'a', 'b', 'c' };
 
             const string expected = "Tape: a(b)c";
-            var sut = new TuringMachine.Tape(left, 'f', right);
-            var result = sut.Write(head);
-            Assert.AreEqual(expected, result.ToString());
+            var sut = new TuringMachine.Tape(data, 1);
+            sut.Write('f');
+            Assert.AreEqual(expected, sut.ToString());
         }
     }
 }
