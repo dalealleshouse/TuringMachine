@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Resources;
 
 namespace TuringMachine
 {
@@ -14,7 +15,7 @@ namespace TuringMachine
             new Transition(2, '1', '1', HeadDirection.Right, 2),
             new Transition(3, Tape.Blank, Tape.Blank, HeadDirection.Left, 3),
             new Transition(3, '1', Tape.Blank, HeadDirection.Left, 4),
-            new Transition(4, Tape.Blank, Tape.Blank, HeadDirection.NoMove, -1),
+            new Transition(4, Tape.Blank, Tape.Blank, HeadDirection.NoMove, State.Halt),
             new Transition(4, '1', '1', HeadDirection.Left, 4)
         };
     }

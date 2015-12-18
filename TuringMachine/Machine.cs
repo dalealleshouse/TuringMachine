@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 
 namespace TuringMachine
 {
     public class Machine
     {
-        private int _state;
-
         public Machine(int state, Tape tape, IEnumerable<Transition> transitionTable)
         {
             if (tape == null) throw new ArgumentNullException(nameof(tape));
             if (transitionTable == null) throw new ArgumentNullException(nameof(transitionTable));
+
             State = state;
             Tape = tape;
             TransitionTable = transitionTable;
@@ -24,16 +25,26 @@ namespace TuringMachine
 
         public Machine Step()
         {
-            // find transition from table where state = currentstate and tapehead = tapehead
-            // write to tapehead
-            // move tapehead
-            // change current state
-            return null;
+            if (State < 0) return this;
+
+            return
+                TransitionTable
+                    .Where(t => t.InitialState == State && t.Read == Tape.Read())
+                    .DefaultIfEmpty(new Transition(0, Tape.Blank, Tape.Read(), HeadDirection.NoMove,
+                        TuringMachine.State.Error))
+                    .Select(
+                        t => new Machine(t.NextState, Tape.Write(t.Write).MoveHead(t.HeadDirection), TransitionTable))
+                    .First();
         }
 
         public Machine Run()
         {
-            return null;
+            var m = this;
+
+            while (m.State >= 0)
+                m = m.Step();
+
+            return m;
         }
     }
 }
