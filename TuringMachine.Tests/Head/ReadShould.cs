@@ -1,7 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-namespace TuringMachine.Tests.Tape
+﻿namespace TuringMachine.Tests.Head
 {
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
     [TestClass]
     public class ReadShould
     {
@@ -11,7 +11,7 @@ namespace TuringMachine.Tests.Tape
             var data = new[] { 'a', 'b', 'c' };
 
             const char expected = 'b';
-            var sut = new TuringMachine.Tape(data, 1);
+            var sut = new TuringMachine.Head(data, 1);
             var result = sut.Read();
             Assert.AreEqual(expected, result);
         }

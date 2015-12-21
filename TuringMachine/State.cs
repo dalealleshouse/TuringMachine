@@ -2,7 +2,8 @@
 {
     public static class State
     {
-        public static int Halt = -1;
-        public static int Error = -2;
+        public const int Halt = -1;
+
+        public const int Error = -2;
     }
 }

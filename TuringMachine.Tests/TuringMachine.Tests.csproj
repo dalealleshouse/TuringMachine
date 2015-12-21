@@ -57,13 +57,13 @@
     <Compile Include="Machine\RunShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Machine\StepShould.cs" />
-    <Compile Include="Tape\CtorShould.cs" />
-    <Compile Include="Tape\MoveHeadRightShould.cs" />
-    <Compile Include="Tape\MoveHeadLeftShould.cs" />
-    <Compile Include="Tape\MoveHeadShould.cs" />
-    <Compile Include="Tape\ReadShould.cs" />
-    <Compile Include="Tape\WriteShould.cs" />
-    <Compile Include="Tape\ToStringShould.cs" />
+    <Compile Include="Head\CtorShould.cs" />
+    <Compile Include="Head\MoveRightShould.cs" />
+    <Compile Include="Head\MoveLeftShould.cs" />
+    <Compile Include="Head\MoveShould.cs" />
+    <Compile Include="Head\ReadShould.cs" />
+    <Compile Include="Head\WriteShould.cs" />
+    <Compile Include="Head\ToStringShould.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TuringMachine\TuringMachine.csproj">

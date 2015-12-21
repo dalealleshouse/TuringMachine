@@ -11,7 +11,7 @@ namespace TuringMachine.Tests.Machine
             const string expected = "Tape: (_)11111__";
             var sut = new TuringMachine.Machine(
                 0,
-                new TuringMachine.Tape(new[] { '1', '1', '1', TuringMachine.Tape.Blank, '1', '1' }, 0),
+                new TuringMachine.Head(new[] { '1', '1', '1', TuringMachine.Head.Blank, '1', '1' }, 0),
                 TransitionTableGenerator.Addition());
 
             var result = sut.Run();
@@ -24,7 +24,7 @@ namespace TuringMachine.Tests.Machine
             const string expected = "Tape: ______(_)111111";
             var sut = new TuringMachine.Machine(
                 0,
-                new TuringMachine.Tape(new[] { '1', '1', '1', TuringMachine.Tape.Blank, '1', '1' }, 0),
+                new TuringMachine.Head(new[] { '1', '1', '1', TuringMachine.Head.Blank, '1', '1' }, 0),
                 TransitionTableGenerator.Multiplication());
 
             var result = sut.Run();
@@ -37,7 +37,7 @@ namespace TuringMachine.Tests.Machine
             const string expected = "Tape: (1)1_11";
             var sut = new TuringMachine.Machine(
                 6,
-                new TuringMachine.Tape(new[] { '1', '1', TuringMachine.Tape.Blank, '1', '1' }, 0),
+                new TuringMachine.Head(new[] { '1', '1', TuringMachine.Head.Blank, '1', '1' }, 0),
                 TransitionTableGenerator.Addition());
 
             var result = sut.Run();

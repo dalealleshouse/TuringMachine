@@ -10,7 +10,7 @@ namespace TuringMachine.Tests.Machine
         {
             var sut = new TuringMachine.Machine(
                 6,
-                new TuringMachine.Tape(new[] {'1', '1', '1'}, 1),
+                new TuringMachine.Head(new[] {'1', '1', '1'}, 1),
                 TransitionTableGenerator.Addition());
 
             var result = sut.Step();
@@ -22,7 +22,7 @@ namespace TuringMachine.Tests.Machine
         {
             var sut = new TuringMachine.Machine(
                 State.Halt,
-                new TuringMachine.Tape(new[] {'1', '1', '1'}, 0),
+                new TuringMachine.Head(new[] {'1', '1', '1'}, 0),
                 TransitionTableGenerator.Addition());
 
             var result = sut.Step();
@@ -34,7 +34,7 @@ namespace TuringMachine.Tests.Machine
         {
             var sut = new TuringMachine.Machine(
                 State.Error,
-                new TuringMachine.Tape(new[] {'1', '1', '1'}, 0),
+                new TuringMachine.Head(new[] {'1', '1', '1'}, 0),
                 TransitionTableGenerator.Addition());
 
             var result = sut.Step();
@@ -46,7 +46,7 @@ namespace TuringMachine.Tests.Machine
         {
             var sut = new TuringMachine.Machine(
                 0,
-                new TuringMachine.Tape(new[] {'1', '1', '1', TuringMachine.Tape.Blank, '1', '1'}, 0),
+                new TuringMachine.Head(new[] {'1', '1', '1', TuringMachine.Head.Blank, '1', '1'}, 0),
                 TransitionTableGenerator.Addition());
 
             var result = sut.Step();
@@ -59,11 +59,11 @@ namespace TuringMachine.Tests.Machine
         {
             var sut = new TuringMachine.Machine(
                 3,
-                new TuringMachine.Tape(new[] { '1', '1', '1' }, 1),
+                new TuringMachine.Head(new[] { '1', '1', '1' }, 1),
                 TransitionTableGenerator.Addition());
             
-            var result = sut.Step().Tape.MoveHeadRight().Read();
-            Assert.AreEqual(TuringMachine.Tape.Blank, result);
+            var result = sut.Step().Tape.MoveRight().Read();
+            Assert.AreEqual(TuringMachine.Head.Blank, result);
         }
     }
 }
