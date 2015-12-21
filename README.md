@@ -1,2 +1,2 @@
-# TuringMachine
-Simple demonstration of a Turing Machine in C#
+# Turing Machine Simulation in C#
+Code to accompany this blog post: [http://hideoushumpbackfreak.com/post/2015/12/21/Turing-Machine-Simulation-in-C](http://hideoushumpbackfreak.com/post/2015/12/21/Turing-Machine-Simulation-in-C "Turing Machine Simulation in C#")

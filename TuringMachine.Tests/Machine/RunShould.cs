@@ -6,13 +6,26 @@ namespace TuringMachine.Tests.Machine
     public class RunShould
     {
         [TestMethod]
-        public void StepToEnd()
+        public void AddTwoNumbers()
         {
-            const string expected = "Tape: (_)1111__";
+            const string expected = "Tape: (_)11111__";
             var sut = new TuringMachine.Machine(
                 0,
-                new TuringMachine.Tape(new[] { '1', '1', TuringMachine.Tape.Blank, '1', '1' }, 0),
+                new TuringMachine.Tape(new[] { '1', '1', '1', TuringMachine.Tape.Blank, '1', '1' }, 0),
                 TransitionTableGenerator.Addition());
+
+            var result = sut.Run();
+            Assert.AreEqual(expected, result.Tape.ToString());
+        }
+
+        [TestMethod]
+        public void MultiplyTwoNumbers()
+        {
+            const string expected = "Tape: ______(_)111111";
+            var sut = new TuringMachine.Machine(
+                0,
+                new TuringMachine.Tape(new[] { '1', '1', '1', TuringMachine.Tape.Blank, '1', '1' }, 0),
+                TransitionTableGenerator.Multiplication());
 
             var result = sut.Run();
             Assert.AreEqual(expected, result.Tape.ToString());
