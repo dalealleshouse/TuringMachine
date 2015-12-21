@@ -14,45 +14,45 @@ namespace TuringMachine
 
             var safeData = tape as char[] ?? tape.ToArray();
             if (headPosition > safeData.Count() - 1 || headPosition < 0)
-                throw new IndexOutOfRangeException("Invalid head postion");
+                throw new IndexOutOfRangeException("Invalid head position");
 
-            this.Tape = safeData;
-            this.HeadPosition = headPosition;
+            Tape = safeData;
+            HeadPosition = headPosition;
         }
 
         public IEnumerable<char> Tape { get; }
 
         public int HeadPosition { get; }
 
-        public Head Write(char head) => new Head(new List<char>(this.Tape) { [this.HeadPosition] = head }, this.HeadPosition);
+        public Head Write(char head) => new Head(new List<char>(Tape) { [HeadPosition] = head }, HeadPosition);
 
-        public Head MoveLeft() => this.HeadPosition == 0
-            ? new Head(new[] { Blank }.Concat(this.Tape), 0)
-            : new Head(this.Tape, this.HeadPosition - 1);
+        public Head MoveLeft() => HeadPosition == 0
+            ? new Head(new[] { Blank }.Concat(Tape), 0)
+            : new Head(Tape, HeadPosition - 1);
 
-        public Head MoveRight() => this.HeadPosition == this.Tape.Count() - 1
-            ? new Head(this.Tape.Concat(new[] { Blank }), this.HeadPosition + 1)
-            : new Head(this.Tape, this.HeadPosition + 1);
+        public Head MoveRight() => HeadPosition == Tape.Count() - 1
+            ? new Head(Tape.Concat(new[] { Blank }), HeadPosition + 1)
+            : new Head(Tape, HeadPosition + 1);
 
         public Head Move(HeadDirection direction)
         {
             switch (direction)
             {
                 case HeadDirection.Left:
-                    return this.MoveLeft();
+                    return MoveLeft();
                 case HeadDirection.NoMove:
                     return this;
                 case HeadDirection.Right:
-                    return this.MoveRight();
+                    return MoveRight();
                 default:
                     throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
             }
         }
 
-        public char Read() => this.Tape.ElementAt(this.HeadPosition);
+        public char Read() => Tape.ElementAt(HeadPosition);
 
-        public override string ToString() => $@"Tape: {this.Tape.Select(GetChar).Aggregate((agg, next) => agg + next)}";
+        public override string ToString() => $@"Tape: {Tape.Select(GetChar).Aggregate((agg, next) => agg + next)}";
 
-        private string GetChar(char c, int index) => index == this.HeadPosition ? $"({c})" : c.ToString();
+        private string GetChar(char c, int index) => index == HeadPosition ? $"({c})" : c.ToString();
     }
 }
