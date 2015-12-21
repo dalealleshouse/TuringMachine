@@ -51,7 +51,7 @@ namespace TuringMachine.Tests.Machine
 
             var result = sut.Step();
             Assert.AreEqual(1, result.State);
-            Assert.AreEqual('1', result.Tape.Read());
+            Assert.AreEqual('1', result.Head.Read());
         }
 
         [TestMethod]
@@ -62,7 +62,7 @@ namespace TuringMachine.Tests.Machine
                 new TuringMachine.Head(new[] { '1', '1', '1' }, 1),
                 TransitionTableGenerator.Addition());
             
-            var result = sut.Step().Tape.MoveRight().Read();
+            var result = sut.Step().Head.MoveRight().Read();
             Assert.AreEqual(TuringMachine.Head.Blank, result);
         }
     }

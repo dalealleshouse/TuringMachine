@@ -6,19 +6,19 @@ namespace TuringMachine
 {
     public class Machine
     {
-        public Machine(int state, Head tape, IEnumerable<Transition> transitionTable)
+        public Machine(int state, Head head, IEnumerable<Transition> transitionTable)
         {
-            if (tape == null) throw new ArgumentNullException(nameof(tape));
+            if (head == null) throw new ArgumentNullException(nameof(head));
             if (transitionTable == null) throw new ArgumentNullException(nameof(transitionTable));
 
             State = state;
-            Tape = tape;
+            Head = head;
             TransitionTable = transitionTable;
         }
 
         public int State { get; }
 
-        public Head Tape { get; }
+        public Head Head { get; }
 
         public IEnumerable<Transition> TransitionTable { get; }
 
@@ -28,11 +28,11 @@ namespace TuringMachine
 
             return
                 TransitionTable
-                    .Where(t => t.InitialState == State && t.Read == Tape.Read())
-                    .DefaultIfEmpty(new Transition(0, Head.Blank, Tape.Read(), HeadDirection.NoMove,
+                    .Where(t => t.InitialState == State && t.Read == Head.Read())
+                    .DefaultIfEmpty(new Transition(0, Head.Blank, Head.Read(), HeadDirection.NoMove,
                         TuringMachine.State.Error))
                     .Select(
-                        t => new Machine(t.NextState, Tape.Write(t.Write).Move(t.HeadDirection), TransitionTable))
+                        t => new Machine(t.NextState, Head.Write(t.Write).Move(t.HeadDirection), TransitionTable))
                     .First();
         }
 

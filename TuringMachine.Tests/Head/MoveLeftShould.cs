@@ -8,7 +8,7 @@
         [TestMethod]
         public void MoveLeftWhenAtZeroHeadPostion()
         {
-            const string expected = "Tape: (_)abcd";
+            const string expected = "Head: (_)abcd";
             var sut = new TuringMachine.Head(new[] {'a', 'b', 'c', 'd'}, 0);
             var result = sut.MoveLeft();
             Assert.AreEqual(expected, result.ToString());
@@ -19,17 +19,17 @@
         {
             var data = new[] {'a', 'b', 'c', 'd', 'e'};
 
-            var expected = "Tape: ab(c)de";
+            var expected = "Head: ab(c)de";
             var sut = new TuringMachine.Head(data, 3);
             var result = sut.MoveLeft();
             Assert.AreEqual(expected, result.ToString());
 
-            expected = "Tape: abc(d)e";
+            expected = "Head: abc(d)e";
             sut = new TuringMachine.Head(data, 4);
             result = sut.MoveLeft();
             Assert.AreEqual(expected, result.ToString());
 
-            expected = "Tape: (a)bcde";
+            expected = "Head: (a)bcde";
             sut = new TuringMachine.Head(data, 1);
             result = sut.MoveLeft();
             Assert.AreEqual(expected, result.ToString());
